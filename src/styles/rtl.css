@@ -1,0 +1,86 @@
+/* Force right-to-left direction */
+.page,
+.container,
+.container-tight,
+.card,
+.card-body,
+.form-label,
+.form-control,
+.form-check-label,
+.btn,
+.input-group {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Adjustments for specific elements */
+.form-label-description {
+  float: left; /* Push to the left */
+}
+
+.input-group.input-group-flat .form-control {
+  border-left: 0; /* Remove left border */
+  border-right: 1px solid #ced4da; /* Add right border */
+  padding-left: 2.5rem; /* Space for the icon */
+}
+
+.input-group-text {
+  border-left: 1px solid #ced4da; /* Add left border */
+  border-right: 0; /* Remove right border */
+  left: auto;
+  right: 0;
+  padding-left: 0.5rem;  
+  padding-right: 2.5rem;
+}
+
+.form-check-input {
+  float: right; /* Push checkbox to the right */
+  margin-left: 0.25rem; /* Adjust left margin */
+  border: 1px solid #ec3b05; /* Add left border */
+  margin-right: -1.5rem; /* Adjust right margin to align text */
+}
+
+.btn-4 svg {
+  margin-left: 0.5rem; /* Adjust icon margin */
+  margin-right: 0;
+}
+
+.hr-text::before,
+.hr-text::after {
+  left: auto;
+  right: 50%;
+  margin-left: 0;
+  margin-right: -0.5em;
+}
+
+.text-secondary a {
+  margin-left: 0.25rem;
+  margin-right: 0;
+}
+
+/* Style for the password toggle icon inside the input */
+.input-group.input-group-flat {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.password-input {
+  padding-right: 0.6rem !important; /* Make space for the icon on the right */
+}
+
+.password-toggle {
+  position: absolute;
+  left: 0; /* Position on the left for RTL */
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.password-toggle svg {
+  margin: 0; /* Remove default icon margins */
+}

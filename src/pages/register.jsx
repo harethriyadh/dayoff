@@ -1,0 +1,185 @@
+import React, { useState } from 'react';
+import '../styles/css/tabler.min.css';
+import '../styles/css/tabler-flags.min.css';
+import '../styles/css/tabler-socials.min.css';
+import '../styles/css/tabler-payments.min.css';
+import '../styles/css/tabler-vendors.min.css';
+import '../styles/css/tabler-marketing.min.css';
+import '../styles/css/demo.min.css';
+import '../styles/rtl.css';
+
+function RegisterPage() {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [role, setRole] = useState('employee'); // Added role state, default value is 'employee'
+  const [availableDaysOff, setAvailableDaysOff] = useState(0); // Added availableDaysOff state
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+
+
+    try {
+      const response = await fetch('https://subend.onrender.com/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, username, email, password, role, availableDaysOff }), // Include role and availableDaysOff
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Registration failed.');
+      }
+
+      const data = await response.json();
+      alert(data.message || 'Registration successful! Please log in.');
+      window.location.href = "/login";
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred during registration: ' + error.message);
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleAgreeTermsChange = (e) => {
+    setAgreeTerms(e.target.checked);
+  };
+
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
+  };
+
+  const handleDaysOffChange = (e) => {
+    setAvailableDaysOff(parseInt(e.target.value, 10) || 0); // Ensure it's a number
+  };
+
+  return (
+    <div className="d-flex flex-column">
+      <div className="page">
+        <div className="container container-tight py-4">
+          <div className="text-center mb-4">
+            <a href="." className="navbar-brand navbar-brand-autodark">
+              {/* Add your logo here if needed  */}
+            </a>
+          </div>
+          <div className="card card-md">
+            <div className="card-body">
+              <h2 className="h2 text-center mb-4">انشاء حساب جديد</h2>
+              <form id="registerForm" onSubmit={handleRegister} autoComplete="off" noValidate>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    id="name"
+                    className="form-control"
+                    placeholder="اسمك الثنائي"
+                    autoComplete="off"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    id="username"
+                    className="form-control"
+                    placeholder="اسم المستخدم"
+                    autoComplete="off"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <div className="input-group input-group-flat">
+                    <input
+                      type={passwordVisible ? 'text' : 'password'}
+                      id="password"
+                      className="form-control password-input"
+                      placeholder="كلمة المرور"
+                      autoComplete="off"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    <span className="input-group-text">
+                      <a
+                        href="#"
+                        className="link-secondary password-toggle"
+                        title="إظهار كلمة المرور"
+                        data-bs-toggle="tooltip"
+                        onClick={togglePasswordVisibility}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="icon icon-1"
+                        >
+                          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                          <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                        </svg>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">الدور</label>
+                  <select
+                    className="form-select" // Use form-select for consistent styling
+                    value={role}
+                    onChange={handleRoleChange}
+                  >
+                    <option value="employee">موظف</option>
+                    <option value="manager">مدير</option>
+                    <option value="leader">قائد</option>
+                    <option value="admin">مسؤول</option>
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">أيام الإجازة المتاحة</label>
+                  <input
+                    type="number"
+                    min="0"
+                    className="form-control"
+                    value={availableDaysOff}
+                    onChange={handleDaysOffChange}
+                  />
+                </div>
+
+                <div className="form-footer">
+                  <button type="submit" className="btn btn-primary w-100">
+                    انشاء حساب
+                  </button>
+                </div>
+              </form>
+              <div className="text-center text-muted mt-3">
+              لديك حساب بالفعل؟ <a href="./login">تسجيل الدخول</a>
+            </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default RegisterPage;
