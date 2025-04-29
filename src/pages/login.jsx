@@ -19,8 +19,7 @@ function LoginPage() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        // const response = await fetch('https://subend.onrender.com/api/session');
-        const response = await fetch('http://localhost:8083/api/login');
+        const response = await fetch('https://subend.onrender.com/api/login');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -52,7 +51,7 @@ function LoginPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:8083/api/login', {
+      const response = await fetch('https://subend.onrender.com/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
