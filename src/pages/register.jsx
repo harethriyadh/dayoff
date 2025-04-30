@@ -1,4 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
+import {
+    createBrowserRouter,
+    RouterProvider,
+    Route,
+    Link,
+    redirect,
+    useNavigate, // Still useful for other navigation
+    useActionData,
+  } from 'react-router-dom';
 import React, { useState } from 'react';
 import '../styles/css/tabler.min.css';
 import '../styles/css/tabler-flags.min.css';
@@ -18,12 +26,10 @@ function RegisterPage() {
     const [availableDaysOff, setAvailableDaysOff] = useState(0);
 
     const handleRegister = async (e) => {
-
-        const navigate = useNavigate();
         e.preventDefault();
 
         try {
-            const response = await fetch('https://subend.onrender.com/api/register', {
+            const response = await fetch('https://subend.onrender.com/api/registr', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +51,7 @@ function RegisterPage() {
 
             const data = await response.json();
             alert(data.message || 'Registration successful! Please log in.');
-            navigate('/login');
+            return redirect('/login');
         } catch (error) {
             console.error('Registration error:', error);
             alert('An error occurred during registration: ' + error.message);
@@ -115,31 +121,30 @@ function RegisterPage() {
                                             required
                                         />
                                         <span className="input-group-text">
-            <button
-              type="button"
-              className="link-secondary password-toggle"
-              title={passwordVisible ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}
-              data-bs-toggle="tooltip"
-              onClick={togglePasswordVisibility}
-              style={{ border: 'none', background: 'transparent', padding: 0, cursor: 'pointer' }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="icon icon-1"
-              >
-                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-              </svg>
-            </button>
-          </span>
+                                            <a
+                                                href="#"
+                                                className="link-secondary password-toggle"
+                                                title="إظهار كلمة المرور"
+                                                data-bs-toggle="tooltip"
+                                                onClick={togglePasswordVisibility}
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="icon icon-1"
+                                                >
+                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                </svg>
+                                            </a>
+                                        </span>
                                     </div>
                                 </div>
 
