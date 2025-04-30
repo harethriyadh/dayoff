@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-
 import '../styles/css/tabler.min.css';
 import '../styles/css/tabler-flags.min.css';
 import '../styles/css/tabler-socials.min.css';
@@ -15,29 +14,36 @@ function RegisterPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const [role, setRole] = useState('employee'); // Default role
-    const [availableDaysOff, setAvailableDaysOff] = useState(0); // Initial days off
+    const [role, setRole] = useState('employee');
+    const [availableDaysOff, setAvailableDaysOff] = useState(0);
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://subend.onrender.com/api/registr', {
+            const response = await fetch('https://subend.onrender.com/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, username, password, role, availableDaysOff }), // Sending as a number now
+                body: JSON.stringify({ name, username, password, role, availableDaysOff }),
             });
 
+            const contentType = response.headers.get('content-type');
+
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Registration failed.');
+                if (contentType && contentType.includes('application/json')) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Registration failed.');
+                } else {
+                    const errorText = await response.text();
+                    throw new Error('Unexpected server response: ' + errorText.substring(0, 100));
+                }
             }
 
             const data = await response.json();
             alert(data.message || 'Registration successful! Please log in.');
-            window.location.href = "/login"; // Redirect on success
+            window.location.href = "/login";
         } catch (error) {
             console.error('Registration error:', error);
             alert('An error occurred during registration: ' + error.message);
@@ -108,7 +114,7 @@ function RegisterPage() {
                                         />
                                         <span className="input-group-text">
                                             <a
-                                                href="javascript:void(0)"
+                                                href="#"
                                                 className="link-secondary password-toggle"
                                                 title="إظهار كلمة المرور"
                                                 data-bs-toggle="tooltip"
