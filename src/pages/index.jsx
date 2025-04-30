@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'gatsby'; // Import the Link component from Gatsby
 
 const MainPage = () => {
   return (
     <div style={styles.body}>
       <div style={styles.topIcons}>
-        <a href="#" style={styles.iconLink}>Login</a>
-        <a href="#" style={styles.iconLink}>Register</a>
+        <Link to="/login" style={styles.iconLink}>Login</Link>
+        <Link to="/register" style={styles.iconLink}>Register</Link>
       </div>
       <div style={styles.mainContent}>
         This is the main page
@@ -24,7 +25,7 @@ const styles = {
     justifyContent: 'center',
     minHeight: '100vh',
     backgroundColor: '#f4f4f4',
-    position: 'relative', // To position the top icons absolutely within this container
+    position: 'relative',
   },
   topIcons: {
     position: 'absolute',

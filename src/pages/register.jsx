@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'gatsby'; // Import the Link component from Gatsby
 import '../styles/css/tabler.min.css';
 import '../styles/css/tabler-flags.min.css';
 import '../styles/css/tabler-socials.min.css';
@@ -60,9 +61,9 @@ function RegisterPage() {
             <div className="page">
                 <div className="container container-tight py-4">
                     <div className="text-center mb-4">
-                        <a href="." className="navbar-brand navbar-brand-autodark">
+                        <Link to="/" className="navbar-brand navbar-brand-autodark">
                             {/* Add your logo here if needed */}
-                        </a>
+                        </Link>
                     </div>
                     <div className="card card-md">
                         <div className="card-body">
@@ -106,7 +107,7 @@ function RegisterPage() {
                                         />
                                         <span className="input-group-text">
                                             <a
-                                                href="#"
+                                                href="javascript:void(0)"
                                                 className="link-secondary password-toggle"
                                                 title="إظهار كلمة المرور"
                                                 data-bs-toggle="tooltip"
@@ -162,10 +163,10 @@ function RegisterPage() {
                                         انشاء حساب
                                     </button>
                                 </div>
+                                <div className="text-center text-muted mt-3">
+                                    لديك حساب بالفعل؟ <Link to="/login">تسجيل الدخول</Link>
+                                </div>
                             </form>
-                            <div className="text-center text-muted mt-3">
-                                لديك حساب بالفعل؟ <a href="./login">تسجيل الدخول</a>
-                            </div>
                         </div>
                     </div>
                 </div>

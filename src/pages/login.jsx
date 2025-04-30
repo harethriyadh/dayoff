@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-// import '../styles/css/tabler.min.css'; // Removed - causing errors
-// import '../styles/css/tabler-flags.min.css'; // Removed - causing errors
-// import '../styles/css/tabler-socials.min.css'; // Removed - causing errors
-// import '../styles/css/tabler-payments.min.css'; // Removed - causing errors
-// import '../styles/css/tabler-vendors.min.css'; // Removed - causing errors
-// import '../styles/css/tabler-marketing.min.css'; // Removed - causing errors
-// import '../styles/css/demo.min.css'; // Removed - causing errors
-// import '../styles/rtl.css'; // Removed - causing errors
+import '../styles/css/tabler.min.css'; // Removed - causing errors
+import '../styles/css/tabler-flags.min.css'; // Removed - causing errors
+import '../styles/css/tabler-socials.min.css'; // Removed - causing errors
+import '../styles/css/tabler-payments.min.css'; // Removed - causing errors
+import '../styles/css/tabler-vendors.min.css'; // Removed - causing errors
+import '../styles/css/tabler-marketing.min.css'; // Removed - causing errors
+import '../styles/css/demo.min.css'; // Removed - causing errors
+import '../styles/rtl.css'; // Removed - causing errors
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'gatsby'; // Import the Link component from Gatsby
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -102,9 +105,9 @@ function LoginPage() {
       <div className="page">
         <div className="container container-tight py-4">
           <div className="text-center mb-4">
-            <a href="." className="navbar-brand navbar-brand-autodark">
+            <Link to="/" className="navbar-brand navbar-brand-autodark">
               {/* Add your logo here if needed */}
-            </a>
+            </Link>
           </div>
           <div className="card card-md">
             <div className="card-body">
@@ -127,7 +130,7 @@ function LoginPage() {
                   <label className="form-label">
                     كلمة المرور
                     <span className="form-label-description">
-                      <a href="./forgot-password.html">نسيت كلمة المرور</a>
+                      <Link to="/forgot-password">نسيت كلمة المرور</Link>
                     </span>
                   </label>
                   <div className="input-group input-group-flat">
@@ -143,7 +146,7 @@ function LoginPage() {
                     />
                     <span className="input-group-text">
                       <a
-                        href="#"
+                        href="javascript:void(0)" // Or href=""
                         className="link-secondary password-toggle"
                         title={passwordVisible ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
                         onClick={togglePasswordVisibility}
@@ -204,7 +207,7 @@ function LoginPage() {
                   </button>
                 </div>
                 <div className="text-center text-muted mt-3">
-                  ليس لديك حساب؟ <a href="./register">تسجيل الدخول</a>
+                  ليس لديك حساب؟ <Link to="/register">تسجيل الدخول</Link>
                 </div>
               </form>
             </div>
