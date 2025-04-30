@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "develop": "gatsby develop",
-    "gatsby": "gatsby"
+    // "gatsby": "gatsby"
   },
   "eslintConfig": {
     "extends": [
