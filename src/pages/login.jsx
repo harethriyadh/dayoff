@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import '../styles/css/tabler.min.css'; // Removed - causing errors
-import '../styles/css/tabler-flags.min.css'; // Removed - causing errors
-import '../styles/css/tabler-socials.min.css'; // Removed - causing errors
-import '../styles/css/tabler-payments.min.css'; // Removed - causing errors
-import '../styles/css/tabler-vendors.min.css'; // Removed - causing errors
-import '../styles/css/tabler-marketing.min.css'; // Removed - causing errors
-import '../styles/css/demo.min.css'; // Removed - causing errors
-import '../styles/rtl.css'; // Removed - causing errors
+import '../styles/css/tabler.min.css';
+import '../styles/css/tabler-flags.min.css';
+import '../styles/css/tabler-socials.min.css';
+import '../styles/css/tabler-payments.min.css';
+import '../styles/css/tabler-vendors.min.css';
+import '../styles/css/tabler-marketing.min.css';
+import '../styles/css/demo.min.css';
+import '../styles/rtl.css';
+
 
 
 function LoginPage() {
@@ -34,8 +35,8 @@ function LoginPage() {
         }
       } catch (error) {
         console.error('Error checking session:', error);
-        setMessage('Failed to check session. Server error: ' + error.message); // Include the error message
-        setLoading(false); // Make sure to set loading to false on error
+        setMessage('Failed to check session. Server error: ' + error.message);
+        setLoading(false);
       }
     };
     checkSession();
@@ -144,8 +145,8 @@ function LoginPage() {
                       required
                     />
                     <span className="input-group-text">
-                      <a
-                        href="javascript:void(0)" // Or href=""
+                      <button
+                        type="button"
                         className="link-secondary password-toggle"
                         title={passwordVisible ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
                         onClick={togglePasswordVisibility}
@@ -169,7 +170,7 @@ function LoginPage() {
                           )}
                           {!passwordVisible && <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />}
                         </svg>
-                      </a>
+                      </button>
                     </span>
                   </div>
                 </div>
@@ -189,7 +190,11 @@ function LoginPage() {
                   <div className="alert alert-danger" role="alert">
                     <div className="d-flex">
                       <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"></path><path d="M12 8v8"></path><path d="M12 16h.01"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"></path>
+                          <path d="M12 8v8"></path>
+                          <path d="M12 16h.01"></path>
+                        </svg>
                       </div>
                       <div>
                         <h4 className="alert-title">Error</h4>

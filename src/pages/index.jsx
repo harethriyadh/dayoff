@@ -5,8 +5,8 @@ const MainPage = () => {
   return (
     <div style={styles.body}>
       <div style={styles.topIcons}>
-        <Link to="./login" style={styles.iconLink}>Login</Link>
-        <Link to="./register" style={styles.iconLink}>Register</Link>
+        <Link to="/login" style={styles.iconLink}>Login</Link>
+        <Link to="/register" style={styles.iconLink}>Register</Link>
       </div>
       <div style={styles.mainContent}>
         This is the main page
