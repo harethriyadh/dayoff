@@ -77,7 +77,7 @@ function LoginPage() {
           localStorage.removeItem('username');
           localStorage.removeItem('password');
         }
-        window.location.href = "/index";
+        window.location.href = "./index";
       } else {
         setMessage(data.message || 'Login failed. Invalid credentials.');
       }
