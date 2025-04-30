@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import '../styles/css/tabler.min.css';
 import '../styles/css/tabler-flags.min.css';
@@ -18,6 +18,8 @@ function RegisterPage() {
     const [availableDaysOff, setAvailableDaysOff] = useState(0);
 
     const handleRegister = async (e) => {
+
+        const navigate = useNavigate();
         e.preventDefault();
 
         try {
@@ -43,7 +45,7 @@ function RegisterPage() {
 
             const data = await response.json();
             alert(data.message || 'Registration successful! Please log in.');
-            navigate('./login');
+            navigate('/login');
         } catch (error) {
             console.error('Registration error:', error);
             alert('An error occurred during registration: ' + error.message);
