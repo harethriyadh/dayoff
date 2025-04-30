@@ -1,12 +1,4 @@
-import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-    Link,
-    redirect,
-    useNavigate, // Still useful for other navigation
-    useActionData,
-  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import '../styles/css/tabler.min.css';
 import '../styles/css/tabler-flags.min.css';
@@ -51,7 +43,7 @@ function RegisterPage() {
 
             const data = await response.json();
             alert(data.message || 'Registration successful! Please log in.');
-            return redirect('/login');
+            window.location.href = "/login";
         } catch (error) {
             console.error('Registration error:', error);
             alert('An error occurred during registration: ' + error.message);
