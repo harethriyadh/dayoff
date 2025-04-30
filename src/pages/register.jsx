@@ -60,7 +60,7 @@ function RegisterPage() {
 
             const data = await response.json();
             alert(data.message || 'Registration successful! Please log in.');
-            window.location.href = "./login";
+            window.location.href = "./index";
         } catch (error) {
             console.error('Registration error:', error);
             alert('An error occurred during registration: ' + error.message);
