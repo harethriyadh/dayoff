@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { Link } from 'gatsby'; // Import the Link component from Gatsby
 import '../styles/css/tabler.min.css';
 import '../styles/css/tabler-flags.min.css';
 import '../styles/css/tabler-socials.min.css';
