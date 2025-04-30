@@ -21,7 +21,7 @@ function RegisterPage() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://subend.onrender.com/api/registr', {
+            const response = await fetch('https://subend.onrender.com/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
