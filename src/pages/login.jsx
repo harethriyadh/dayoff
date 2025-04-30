@@ -1,3 +1,4 @@
+import { Link } from 'gatsby'; // Import the Link component from Gatsby
 import React, { useState, useEffect } from 'react';
 import '../styles/css/tabler.min.css'; // Removed - causing errors
 import '../styles/css/tabler-flags.min.css'; // Removed - causing errors
@@ -8,8 +9,6 @@ import '../styles/css/tabler-marketing.min.css'; // Removed - causing errors
 import '../styles/css/demo.min.css'; // Removed - causing errors
 import '../styles/rtl.css'; // Removed - causing errors
 
-import React, { useState, useEffect } from 'react';
-import { Link } from 'gatsby'; // Import the Link component from Gatsby
 
 function LoginPage() {
   const [username, setUsername] = useState('');
