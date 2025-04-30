@@ -37,7 +37,7 @@ function RegisterPage() {
                     throw new Error(errorData.message || 'Registration failed.');
                 } else {
                     const errorText = await response.text();
-                    throw new Error('Unexpected server response: ' + errorText.substring(0, 100));
+                    throw new Error('Unexpected server response: ' + errorText.substring(0, 500));
                 }
             }
 
