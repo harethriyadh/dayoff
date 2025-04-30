@@ -43,7 +43,7 @@ function RegisterPage() {
 
             const data = await response.json();
             alert(data.message || 'Registration successful! Please log in.');
-            navigate('/login');
+            navigate('./login');
         } catch (error) {
             console.error('Registration error:', error);
             alert('An error occurred during registration: ' + error.message);
