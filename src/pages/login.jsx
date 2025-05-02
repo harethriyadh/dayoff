@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react'; // Added useRef
 
 function LoginPage() {
     const [username, setUsername] = useState('');
@@ -8,11 +8,14 @@ function LoginPage() {
     const [rememberMe, setRememberMe] = useState(false);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [usernameError, setUsernameError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const messageRef = useRef(null); // Added useRef
 
     useEffect(() => {
         const checkSession = async () => {
             try {
-                setLoading(true); //set loading true here
+                setLoading(true);
                 const token = localStorage.getItem('authToken');
                 if (token) {
                     const response = await fetch('https://subend.onrender.com/api/login', {
@@ -24,26 +27,25 @@ function LoginPage() {
                     if (response.ok) {
                         const data = await response.json();
                         if (data.user) {
-                            window.location.href = "/register";
+                            window.location.href = "/index";
                             return;
                         }
                     }
                     else if (response.status === 401) {
-                        setMessage('Session expired. Please log in.');
-                        localStorage.removeItem('authToken'); // Clear invalid token
-                    } else if (response.status === 404) {
-                        setMessage('User not found. Please log in.');
+                        // setMessage('انتهت صلاحية الجلسة، يرجى تسجيل الدخول مجدداً.'); // Alternative 1
+                        displayMessage('انتهت صلاحية الجلسة، يرجى تسجيل الدخول مجدداً.'); // using displayMessage
                         localStorage.removeItem('authToken');
                     }
-                    // removed the default message
+                    else {
+                         setMessage('لقد انتهت الجلسة, يرجى إعادة تسجيل الدخول.'); // consistent message
+                        localStorage.removeItem('authToken');
+                    }
                 }
-                // removed the  message for no token
             } catch (error) {
                 console.error('Error checking session:', error);
-                setMessage('Failed to check session. Server error: ' + error.message);
-
+                 setMessage('لقد انتهت الجلسة, يرجى إعادة تسجيل الدخول.'); // consistent message
             } finally {
-                setLoading(false); // Make sure to set loading to false on error
+                setLoading(false);
             }
         };
 
@@ -64,15 +66,28 @@ function LoginPage() {
         e.preventDefault();
         setMessage('');
         setLoading(true);
+        setUsernameError('');
+        setPasswordError('');
 
-        if (!username || !password) {
-            setMessage('Please enter both username and password.');
+
+        let hasErrors = false;
+        if (!username) {
+            setUsernameError('اسم المستخدم مطلوب');
+            hasErrors = true;
+        }
+        if (!password) {
+            setPasswordError('كلمة المرور مطلوبة');
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
             setLoading(false);
             return;
         }
 
+
         try {
-            const response = await fetch('http://localhost:3008/api/login', {
+            const response = await fetch('https://subend.onrender.com/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,16 +97,15 @@ function LoginPage() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                let errorMessage = 'Login failed.';
-                if (errorData && errorData.message) {
+                let errorMessage = 'فشل تسجيل الدخول.';
+                 if (response.status === 400)
+                 {
+                    setMessage("البيانات التي ادخلتها غير صحيحة")
+                 }
+                else if (errorData && errorData.message) {
                     errorMessage = errorData.message;
                 }
-                if (errorMessage === 'اسم المستخدم أو كلمة المرور غير صحيحة') {
-                    setMessage(errorMessage);
-                }
-                else {
-                    setMessage('Login failed. Please check your credentials.');
-                }
+                setMessage(errorMessage);
                 throw new Error(errorMessage);
             }
 
@@ -105,18 +119,16 @@ function LoginPage() {
                     localStorage.setItem('password', password);
                 } else {
                     localStorage.removeItem('rememberMe');
-                    localStorage.removeItem('username');
-                    localStorage.removeItem('password');
                 }
                 window.location.href = "./index";
+
             } else {
-                setMessage(data.message || 'Login failed. Invalid credentials.');
+                setMessage(data.message || 'فشل تسجيل الدخول.');
             }
         } catch (error) {
             console.error('Login error:', error);
-            // setMessage('Error during login: ' + error.message);
         } finally {
-            setLoading(false); // **Ensure setLoading(false) is ALWAYS called**
+            setLoading(false);
         }
     };
 
@@ -126,6 +138,19 @@ function LoginPage() {
 
     const handleRememberMeChange = (e) => {
         setRememberMe(e.target.checked);
+    };
+
+    // New function to display messages
+    const displayMessage = (text) => {
+        setMessage(text);
+        if (messageRef.current) {
+            // You can add animation here, e.g., using classList
+            messageRef.current.classList.add('show'); // Example: show class
+            setTimeout(() => {
+                messageRef.current.classList.remove('show'); // Example: hide class
+                setMessage(''); // Clear message after timeout
+            }, 5000); // 5 seconds
+        }
     };
 
     return (
@@ -145,13 +170,14 @@ function LoginPage() {
                                     <input
                                         type="text"
                                         id="username"
-                                        className="form-control"
+                                        className={`form-control ${usernameError ? 'is-invalid' : ''}`}
                                         placeholder="اسم المستخدم"
                                         autoComplete="off"
                                         value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
+                                        onChange={(e) => {setUsername(e.target.value); setUsernameError('')}}
                                         required
                                     />
+                                      {usernameError && <div className="invalid-feedback">{usernameError}</div>}
                                 </div>
                                 <div className="mb-2 inputfield">
                                     <label className="form-label">
@@ -160,11 +186,11 @@ function LoginPage() {
                                         <input
                                             type={passwordVisible ? 'text' : 'password'}
                                             id="password"
-                                            className="form-control password-input"
+                                            className={`form-control password-input ${passwordError ? 'is-invalid' : ''}`}
                                             placeholder="كلمة المرور الخاصة بك"
                                             autoComplete="off"
                                             value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
+                                            onChange={(e) => {setPassword(e.target.value); setPasswordError('')}}
                                             required
                                         />
                                         <span className="input-group-text">
@@ -196,6 +222,7 @@ function LoginPage() {
                                             </button>
                                         </span>
                                     </div>
+                                    {passwordError && <div className="invalid-feedback">{passwordError}</div>}
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-check">
@@ -210,7 +237,7 @@ function LoginPage() {
                                     </label>
                                 </div>
                                 {message && (
-                                    <div className="alert alert-danger" role="alert">
+                                    <div className="alert alert-danger" role="alert" ref={messageRef}> {/* Added ref */}
                                         <div className="d-flex">
                                             <div>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -220,7 +247,6 @@ function LoginPage() {
                                                 </svg>
                                             </div>
                                             <div>
-                                                <h4 className="alert-title">Error</h4>
                                                 <div className="alert-text">
                                                     {message}
                                                 </div>
@@ -230,7 +256,7 @@ function LoginPage() {
                                 )}
                                 <div className="form-footer">
                                     <button type="submit" className="btn btn-primary w-100 thebutton" disabled={loading}>
-                                        {loading ? 'جاري التحميل...' : 'تسجيل الدخول'}
+                                        {loading ? 'جاري التسجيل...' : 'تسجيل الدخول'}
                                     </button>
                                 </div>
                                 <div className="text-center text-muted mt-3">
