@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3435dbb0.css",
-    "main.js": "/static/js/main.63ed7f7b.js",
+    "main.css": "/static/css/main.2bd19dab.css",
+    "main.js": "/static/js/main.81be58e1.js",
     "static/media/sa.svg": "/static/media/sa.aaddda21fe0fba24baa8.svg",
     "static/media/pm.svg": "/static/media/pm.894c210cd54a451ae5a0.svg",
     "static/media/kh.svg": "/static/media/kh.916f0a59163c3b25b2c0.svg",
@@ -522,11 +522,11 @@
     "static/media/ci.svg": "/static/media/ci.773f937cc4253650c85c.svg",
     "static/media/tumblr-gray.svg": "/static/media/tumblr-gray.957cc0d19b1ede6f027c.svg",
     "static/media/tumblr.svg": "/static/media/tumblr.6c6e634c859b7421036a.svg",
-    "main.3435dbb0.css.map": "/static/css/main.3435dbb0.css.map",
-    "main.63ed7f7b.js.map": "/static/js/main.63ed7f7b.js.map"
+    "main.2bd19dab.css.map": "/static/css/main.2bd19dab.css.map",
+    "main.81be58e1.js.map": "/static/js/main.81be58e1.js.map"
   },
   "entrypoints": [
-    "static/css/main.3435dbb0.css",
-    "static/js/main.63ed7f7b.js"
+    "static/css/main.2bd19dab.css",
+    "static/js/main.81be58e1.js"
   ]
 }
