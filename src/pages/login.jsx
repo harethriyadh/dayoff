@@ -15,7 +15,7 @@ function LoginPage() {
                 setLoading(true); //set loading true here
                 const token = localStorage.getItem('authToken');
                 if (token) {
-                    const response = await fetch('http://localhost:3011/api/login', {
+                    const response = await fetch('https://subend.onrender.com/api/login', {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         },
